@@ -14,7 +14,7 @@ export default function Player({name, symbol}) {
 
     if(isEditing) {
         playerName = (
-            <input type="text" required />
+            <input type="text" required value={name} />
         );
     }
 
@@ -24,7 +24,7 @@ export default function Player({name, symbol}) {
                 {playerName}
                 <span className="player-symbol">{symbol}</span>
             </span>
-            <button onClick={toggleEdit}>Edit</button>
+            <button onClick={toggleEdit}>{isEditing ? 'Save' : 'Edit'}</button>
         </li>
     );
 }
