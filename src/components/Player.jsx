@@ -1,27 +1,33 @@
 import {useState} from "react";
 
-export default function Player({name, symbol}) {
-
+export default function Player({initialName, symbol}) {
+    const [ playerName, setPlayerName ] = useState(initialName);
     const [ isEditing, setIsEditing ] = useState(false);
 
     function toggleEdit(){
         setIsEditing(isEditing => !isEditing);
     }
 
-    let playerName = (
-        <span className="player-name">{name}</span>
+    // example two-way binding event handler uses the built in onChange method which passes an event, need to
+    // use target to reference the event object and value for specific property
+    function changeName(event){
+        setPlayerName(event.target.value);
+    }
+
+    let editablePlayerName = (
+        <span className="player-name">{playerName}</span>
     );
 
     if(isEditing) {
-        playerName = (
-            <input type="text" required value={name} />
+        editablePlayerName = (
+            <input type="text" required value={playerName} onChange={changeName}/>
         );
     }
 
     return (
         <li>
             <span className="player">
-                {playerName}
+                {editablePlayerName}
                 <span className="player-symbol">{symbol}</span>
             </span>
             <button onClick={toggleEdit}>{isEditing ? 'Save' : 'Edit'}</button>
