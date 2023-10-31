@@ -1,11 +1,15 @@
 import {useState} from "react";
 
-export default function Player({initialName, symbol, isActive}) {
+export default function Player({initialName, symbol, isActive, onChangeName}) {
     const [ playerName, setPlayerName ] = useState(initialName);
     const [ isEditing, setIsEditing ] = useState(false);
 
     function toggleEdit(){
         setIsEditing(isEditing => !isEditing);
+
+        if (isEditing){
+            onChangeName(symbol, playerName);
+        }
     }
 
     // example two-way binding event handler uses the built in onChange method which passes an event, need to
