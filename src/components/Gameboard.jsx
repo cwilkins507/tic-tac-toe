@@ -1,17 +1,6 @@
-const initialGameBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-];
-export default function GameBoard({onSelection, turns}){
-    let gameBoard = initialGameBoard;
 
-    for (const turn of turns) {
-        const {square, player} = turn;
-        const {row, col} = square;
+export default function GameBoard({onSelection, board}){
 
-        gameBoard[row][col] = player;
-    }
 
     // const [ gameBoard, setGameBoard ] = useState(initialGameBoard);
     //
@@ -26,11 +15,11 @@ export default function GameBoard({onSelection, turns}){
     // }
 
     return <ol id="game-board">
-        {gameBoard.map((row, rowIndex)=>
+        {board.map((row, rowIndex)=>
             <li key={rowIndex}>
                 <ol>{row.map((playerSymbol, columnIndex)=>
                 <li key={columnIndex}>
-                    <button onClick={()=>onSelection(rowIndex, columnIndex)}>{playerSymbol}</button>
+                    <button onClick={()=>onSelection(rowIndex, columnIndex)} disabled={playerSymbol !== null}>{playerSymbol}</button>
                     </li>
                 )}</ol>
             </li>
